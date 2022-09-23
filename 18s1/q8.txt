@@ -1,0 +1,26 @@
+# COMP1521 18s1 Exam Q8
+
+A.
+
+The main difference is that system calls perform a context switch from user to privileged mode whereas regular function calls do not.
+
+
+B.
+
+i)  we use melloc to create and free to destroy.
+
+ii) before we free it, it would exist all the time.
+
+
+C.
+
+4
+
+
+D.
+
+i)  it returns non zero pid, 0 and -1.
+
+ii) it returns -1 or does not return.
+
+

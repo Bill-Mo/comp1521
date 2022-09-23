@@ -1,0 +1,152 @@
+// myls.c ... my very own "ls" implementation
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <bsd/string.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <dirent.h>
+#include <grp.h>
+#include <pwd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <string.h>
+
+#define MAXDIRNAME 100
+#define MAXFNAME   200
+#define MAXNAME    20
+
+char *rwxmode(mode_t, char *);
+char *username(uid_t, char *);
+char *groupname(gid_t, char *);
+
+int main(int argc, char *argv[])
+{
+    // string buffers for various names
+    char dirname[MAXDIRNAME];
+    char uname[MAXNAME+1]; // UNCOMMENT this line
+    char gname[MAXNAME+1]; // UNCOMMENT this line
+    char mode[MAXNAME+1]; // UNCOMMENT this line
+
+    // collect the directory name, with "." as default
+    if (argc < 2)
+       strlcpy(dirname, ".", MAXDIRNAME);
+    else
+       strlcpy(dirname, argv[1], MAXDIRNAME);
+ 
+    // check that the name really is a directory
+    struct stat info;
+    if (stat(dirname, &info) < 0)
+       { perror(argv[0]); exit(EXIT_FAILURE); }
+    if ((info.st_mode & S_IFMT) != S_IFDIR)
+       { fprintf(stderr, "%s: Not a directory\n",argv[0]); exit(EXIT_FAILURE); }
+
+    // open the directory to start reading
+    DIR *df; // UNCOMMENT this line
+    // ... TODO ...
+    df = opendir(dirname);
+ 
+    
+    // read directory entries
+    struct dirent *rd; // UNCOMMENT this line
+    // ... TODO ...
+    rd = readdir(df);
+    char name[1000];
+    char type[11];
+    struct stat buffer;
+    struct stat *buf = &buffer;
+    while (rd != NULL) {
+        strcpy(name, dirname);
+        strcat(name, "/");
+        strcat(name, rd->d_name);
+        //printf("%s\n", name);
+        
+        //lstat(name, buf);
+        
+        if (lstat(name, buf) == -1) {
+            perror("lstat");
+        }
+        printf("%s", rwxmode(buf->st_mode, type));
+        printf("  ");
+        printf("%-8.8s", username(buf->st_uid, uname));
+        printf(" ");
+        printf("%-8.8s", groupname(buf->st_gid, gname));
+        printf(" ");
+        printf("%8lld", buf->st_size);
+        printf(" ");
+        printf("%s", rd->d_name);
+        printf("\n");
+        rd = readdir(df);
+    }
+    // finish up
+    closedir(df); // UNCOMMENT this line
+    return EXIT_SUCCESS;
+}
+
+// convert octal mode to -rwxrwxrwx string
+char *rwxmode(mode_t mode, char *str)
+{
+    char is_rwx[9] = "---------";
+    if ((mode & S_IFMT) == S_IFDIR) {
+            str[0] = 'd';
+        } else if ((mode & S_IFMT) == S_IFREG) {
+            str[0] = '-';
+        } else if ((mode & S_IFMT) == S_IFLNK) {
+            str[0] = 'l';
+        } else {
+            str[0] = '?';
+        }
+    if (mode & S_IRUSR) {
+        is_rwx[0] = 'r';
+    }
+    if (mode & S_IWUSR) {
+        is_rwx[1] = 'w';
+    }
+    if (mode & S_IRUSR) {
+        is_rwx[2] = 'x';
+    }
+    if (mode & S_IRGRP) {
+        is_rwx[3] = 'r';
+    }
+    if (mode & S_IWGRP) {
+        is_rwx[4] = 'w';
+    }
+    if (mode & S_IXGRP) {
+        is_rwx[5] = 'x';
+    }
+    if (mode & S_IROTH) {
+        is_rwx[6] = 'r';
+    }
+    if (mode & S_IWOTH) {
+        is_rwx[7] = 'w';
+    }
+    if (mode & S_IXOTH) {
+        is_rwx[8] = 'x';
+    }
+    strcat(str, is_rwx);
+    str[10] = '\0';
+    return str;
+    // ... TODO ...
+}
+
+// convert user id to user name
+char *username(uid_t uid, char *name)
+{
+   struct passwd *uinfo = getpwuid(uid);
+   if (uinfo == NULL)
+      snprintf(name, MAXNAME, "%d?", (int)uid);
+   else
+      snprintf(name, MAXNAME, "%s", uinfo->pw_name);
+   return name;
+}
+
+// convert group id to group name
+char *groupname(gid_t gid, char *name)
+{
+   struct group *ginfo = getgrgid(gid);
+   if (ginfo == NULL)
+      snprintf(name, MAXNAME, "%d?", (int)gid);
+   else
+      snprintf(name, MAXNAME, "%s", ginfo->gr_name);
+   return name;
+}

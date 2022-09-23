@@ -1,0 +1,23 @@
+# COMP1521 18s1 Exam Q9
+
+A.
+
+i)
+
+To make sure only one reader can read at one time.
+
+ii)
+
+To make no one is reading while writer is writing.
+
+
+B.
+
+i) sem_init(mx, 0, 1);
+
+ii) sem_post(w);
+
+
+C.
+
+...

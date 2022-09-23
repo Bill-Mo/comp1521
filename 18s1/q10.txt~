@@ -1,0 +1,17 @@
+# COMP1521 18s1 Exam Q10
+
+A.
+
+To match the domain name online with IP address of a PC.
+
+
+B.
+
+...
+
+
+C.
+
+    s = socket(AF_INET, SOCK_STREAM, IP);
+    connect(s, &severAddr, Size);
+    write(s, &message, )

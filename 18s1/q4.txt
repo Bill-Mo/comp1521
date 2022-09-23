@@ -1,0 +1,15 @@
+# COMP1521 18s1 Exam Q4
+
+A.
+
+i)    x | y == 0xfefc == 1111 1110 1111 1100
+
+ii)   x & y == 0x1214 == 0001 0010 0001 0100
+
+iii)  x ^ y == 0xecc4 == 1110 1100 1100 0100
+
+iv)   ~ x   == 0xedcb == 1110 1101 1100 1011
+
+B.
+
+The function f() swaps x and y

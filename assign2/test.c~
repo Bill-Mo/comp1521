@@ -1,0 +1,15 @@
+#include <stdio.h>
+
+void add_five(int *x, int *y);
+int main (void) {
+    int x = 10;
+    int y = 20;
+    add_five(&x, &y);
+    printf("%d\n%d\n", x, y);    
+    return 0;
+}
+
+void add_five(int *x, int *y) {
+    &x = &x + 5;
+    y = y + 5;
+}

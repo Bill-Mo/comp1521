@@ -1,0 +1,45 @@
+gcc -std=c99 -Wall -Werror smips.c -o smips
+
+Test loop_program_only (./smips examples/loop.hex|sed '/utput/,$d') - passed
+Test hello_program_only (./smips examples/hello.hex|sed '/utput/,$d') - passed
+Test alphabet_program_only (./smips examples/alphabet.hex|sed '/utput/,$d') - passed
+Test r0_program_only (./smips examples/r0.hex|sed '/utput/,$d') - passed
+Test 4242424242_program_only (./smips examples/4242424242.hex|sed '/utput/,$d') - passed
+Test triangle_program_only (./smips examples/triangle.hex|sed '/utput/,$d') - passed
+Test 42_program_only (./smips examples/42.hex|sed '/utput/,$d') - passed
+Test exit_program_only (./smips examples/exit.hex|sed '/utput/,$d') - passed
+Test square_program_only (./smips examples/square.hex|sed '/utput/,$d') - passed
+Test bad_syscall_program_only (./smips examples/bad_syscall.hex|sed '/utput/,$d') - passed
+Test loop_all (./smips examples/loop.hex) - passed
+Test hello_all (./smips examples/hello.hex) - passed
+Test alphabet_all (./smips examples/alphabet.hex) - passed
+Test r0_all (./smips examples/r0.hex) - passed
+Test 4242424242_all (./smips examples/4242424242.hex) - passed
+Test triangle_all (./smips examples/triangle.hex) - passed
+Test 42_all (./smips examples/42.hex) - passed
+Test exit_all (./smips examples/exit.hex) - passed
+Test square_all (./smips examples/square.hex) - passed
+Test bad_syscall_all (./smips examples/bad_syscall.hex) - passed
+20 tests passed 0 tests failed 
+Student declaration
+-------------------
+* This assignment is my own work, except where permitted by
+  the originality rules for this course and this assignment.
+* This assignment has not been submitted for academic credit
+  elsewhere.
+* I have read and understood the University Rules in respect
+  of Student Academic Misconduct.
+
+Type "yes" to confirm that you agree to the declaration above: yes
+
+
+Current day and time:	Fri Nov 20 16:42:58 2020
+Assignment deadline:	Sun Nov 22 23:59:00 2020
+A submission now would be 2 days and 7 hours early
+
+Type "yes" to continue with the submission: Continuing with the submission...
+
+Submission datestamp:	Fri Nov 20 16:43:01 2020
+Assignment deadline:	Sun Nov 22 23:59:00 2020
+This submission is 2 days and 7 hours early
+Your submission is ACCEPTED.
